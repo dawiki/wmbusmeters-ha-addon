@@ -13,9 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          token: '${{ secrets.GITHUB_TOKEN }}'
+        uses: actions/checkout@v3
 
       - name: Update README and set version in config.json
         run: |
@@ -27,6 +25,7 @@ jobs:
           name: ha-addon_artifact-${{ github.event.client_payload.ver }}
           path: ${{ github.workspace }}
           retention-days: 1
+          token: '${{ secrets.GITHUB_TOKEN }}'
 
   build:
     needs: prepare
