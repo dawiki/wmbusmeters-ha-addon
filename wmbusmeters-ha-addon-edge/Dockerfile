@@ -26,8 +26,7 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.19/main" > /etc/apk/repositor
     apk upgrade --no-cache && \
     apk add --no-cache mosquitto-clients libstdc++ curl libusb rtl-sdr netcat-openbsd nginx libxml2
 # Install Flask
-RUN apk add --update py3-pip py3-cryptography
-RUN pip install flask requests waitress xmltodict
+RUN apk add --update py3-pip py3-cryptography py3-flask py3-requests py3-waitress py3-xmltodict
 
 WORKDIR /wmbusmeters
 COPY --from=build /wmbusmeters/build/wmbusmeters /wmbusmeters/wmbusmeters
