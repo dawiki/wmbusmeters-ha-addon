@@ -3,7 +3,9 @@ FROM $BUILD_FROM AS build
 
 ENV LANG C.UTF-8
 
-RUN apk add --no-cache alpine-sdk gcc linux-headers librtlsdr-dev cmake libusb-dev libxml2-dev
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.19/main" > /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.19/community" >> /etc/apk/repositories &&  \
+    apk add --no-cache alpine-sdk gcc linux-headers librtlsdr-dev cmake libusb-dev libxml2-dev
 
 ADD https://api.github.com/repos/wmbusmeters/wmbusmeters/git/refs/heads/master version.json
 RUN git clone https://github.com/wmbusmeters/wmbusmeters.git && \
@@ -18,7 +20,9 @@ RUN mkdir build && cd build && cmake ../ && make
 
 FROM $BUILD_FROM AS scratch
 ENV QEMU_EXECVE=1
-RUN apk add --no-cache mosquitto-clients libstdc++ curl libusb rtl-sdr netcat-openbsd nginx libxml2
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.19/main" > /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.19/community" >> /etc/apk/repositories &&  \
+    apk add --no-cache mosquitto-clients libstdc++ curl libusb rtl-sdr netcat-openbsd nginx libxml2
 # Install Flask
 RUN apk add --update py3-pip py3-cryptography
 RUN pip install flask requests waitress xmltodict

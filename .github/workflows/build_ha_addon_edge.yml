@@ -47,7 +47,6 @@ jobs:
             --${{ matrix.arch }} \
             --target wmbusmeters-ha-addon-edge \
             --version ${{ github.event.client_payload.ver }}
-            --version-from ghcr.io/home-assistant/aarch64-base:latest
 
   update-repo:
     needs: [prepare, build]
